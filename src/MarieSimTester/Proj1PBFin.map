@@ -1,0 +1,29 @@
+ --------------------
+ Symbol    | Location
+ ----------+---------
+ ArrayAddr |   03B
+ adder     |   029
+ addr      |   03A
+ bgn1      |   012
+ bit0      |   042
+ bit1      |   041
+ bit2      |   040
+ bit3      |   03F
+ bit4      |   03E
+ bit5      |   03D
+ bit6      |   03C
+ cont      |   020
+ copyValue |   035
+ endfn     |   033
+ i         |   039
+ ifElse    |   024
+ infloop   |   010
+ loop      |   015
+ mul       |   011
+ one       |   038
+ ones      |   037
+ parity    |   036
+ valMak    |   02F
+ value     |   034
+ vck       |   02B
+

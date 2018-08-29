@@ -1,0 +1,109 @@
+     Assembly listing for: Proj1PBFin.mas
+                Assembled: Fri Mar 10 15:54:22 EST 2017
+
+000 0011 |            JNS mul             // store and jump
+001 1035 |            LOAD copyValue      // print out the decimal value of the input
+002 6000 |            OUTPUT               
+003 1037 |            LOAD ones           // print out the number of ones in the binary code of input
+004 6000 |            OUTPUT               
+005 1036 |            LOAD parity         // print out parity bit
+006 6000 |            OUTPUT               
+007 A000 |            CLEAR               // clear AC 
+008 2034 |            STORE value         // store the zeros to value memory 
+009 2035 |            STORE copyValue     // store the zeros to copyValue memory
+00A 2036 |            STORE parity        // store the zeros to parity memory
+00B 2037 |            STORE ones          // store the zeros to ones memory
+00C 2039 |            STORE i             // store the zeros to i memory
+00D 103A |            LOAD addr           // load the address of the first number in array 
+00E 203B |            STORE ArrayAddr     // and store it in ArrayAddress
+00F A000 |            CLEAR               // clear AC
+010 9012 |  infloop   JUMP bgn1           // jump to the begining of the infinit loop
+011 0000 |  mul       HEX 0               // sore the return address here
+012 5000 |  bgn1      INPUT               //get the input
+013 2034 |            STORE value         //store it as decimal  
+014 2035 |            STORE copyValue     // copy the value of the input in CopyValue
+         |                                
+015 D03B |  loop      LOADI ArrayAddr     // load the first value in the array by using the indirect load, loadi
+016 2039 |            STORE i             // store it in i
+017 103B |            LOAD ArrayAddr      // load Array Address directly
+018 3038 |            ADD one             // and add one to it, in order to point out to the next array value
+019 203B |            STORE ArrayAddr     // store the new address
+01A 1034 |            LOAD value          // load the input value
+01B 4039 |            SUBT i              // subtract i, which is one of the bits, from value
+01C 2034 |            STORE value         // store new value
+01D 8000 |            SKIPCOND 000        // check if the new value is negative
+01E 9020 |            JUMP cont           // if not, jump to continue location
+01F 902F |            JUMP valMak         // if yes, jump to value maker to change its value to the privous value
+020 1037 |  cont      LOAD ones           // load ones, number of binarry
+021 3038 |            ADD one             // and add one to it
+022 2037 |            STORE ones          // 
+023 1036 |            LOAD parity         // load parity and toggle it
+024 8800 |  ifElse    SKIPCOND 800        // if it is a positive number, which means one subtract one 
+025 9029 |            JUMP adder          // if not, which means it is zero, jump to adder and add one to it
+026 4038 |            SUBT one             
+027 2036 |            STORE parity         
+028 902B |            JUMP vck            // jump to value checker 
+029 3038 |  adder     ADD one              
+02A 2036 |            STORE parity         
+02B 1034 |  vck       LOAD value          // load value to see of the proceess is done                       
+02C 8400 |            SKIPCOND 400        // if it is zero, end of the function
+02D 9015 |            JUMP loop           // if not, jump back to loop
+02E 9033 |            JUMP endfn           
+02F 1034 |  valMak    LOAD value          // load value to take back its value to privious one
+030 3039 |            ADD i                
+031 2034 |            STORE value          
+032 9015 |            JUMP loop           // jump back to loop to try it again
+033 C011 |  endfn     JUMPI mul           // end of the function
+         |                                
+034 0000 |  value     DEC 0                
+035 0000 |  copyValue DEC 0                
+036 0000 |  parity    DEC 0                
+037 0000 |  ones      DEC 0                
+038 0001 |  one       DEC 1                
+039 0000 |  i         DEC 0                
+03A 003C |  addr      HEX 03C             // address of the begining of the array
+         |                                
+03B 003C |  ArrayAddr HEX 03C             // array values
+03C 0040 |  bit6      DEC 64               
+03D 0020 |  bit5      DEC 32               
+03E 0010 |  bit4      DEC 16               
+03F 0008 |  bit3      DEC 8                
+040 0004 |  bit2      DEC 4                
+041 0002 |  bit1      DEC 2                
+042 0001 |  bit0      DEC 1                
+
+Assembly successful.
+
+         SYMBOL TABLE
+         -----------------------------------------------------
+          Symbol    | Defined | References 
+         -----------+---------+-------------------------------
+          ArrayAddr |   03B   | 00E, 015, 017, 019
+          adder     |   029   | 025
+          addr      |   03A   | 00D
+          bgn1      |   012   | 010
+          bit0      |   042   | 
+          bit1      |   041   | 
+          bit2      |   040   | 
+          bit3      |   03F   | 
+          bit4      |   03E   | 
+          bit5      |   03D   | 
+          bit6      |   03C   | 
+          cont      |   020   | 01E
+          copyValue |   035   | 001, 009, 014
+          endfn     |   033   | 02E
+          i         |   039   | 00C, 016, 01B, 030
+          ifElse    |   024   | 
+          infloop   |   010   | 
+          loop      |   015   | 02D, 032
+          mul       |   011   | 000, 033
+          one       |   038   | 018, 021, 026, 029
+          ones      |   037   | 003, 00B, 020, 022
+          parity    |   036   | 005, 00A, 023, 027, 02A
+          valMak    |   02F   | 01F
+          value     |   034   | 008, 013, 01A, 01C, 02B, 02F, 
+                    |         | 031
+          vck       |   02B   | 028
+         -----------------------------------------------------
+
+

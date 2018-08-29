@@ -1,0 +1,70 @@
+jns mul              // store and jump
+load copyValue       // print out the decimal value of the input
+output
+load ones          // print out the number of ones in the binary code of input
+output
+load parity      // print out parity bit
+output
+clear                               // clear AC 
+store value                        // store the zeros to value memory 
+store copyValue                   // store the zeros to copyValue memory
+store parity                     // store the zeros to parity memory
+store ones                      // store the zeros to ones memory
+store i                        // store the zeros to i memory
+load addr                     // load the address of the first number in array 
+store ArrayAddr              // and store it in ArrayAddress
+clear                       // clear AC
+infloop, jump bgn1         // jump to the begining of the infinit loop
+mul, hex 0                // sore the return address here
+bgn1, input             //get the input
+store value             //store it as decimal  
+store copyValue        // copy the value of the input in CopyValue
+
+loop, loadi ArrayAddr               // load the first value in the array by using the indirect load, loadi
+store i                           // store it in i
+load ArrayAddr                   // load Array Address directly
+add one                         // and add one to it, in order to point out to the next array value
+store ArrayAddr                // store the new address
+load value                    // load the input value
+subt i                       // subtract i, which is one of the bits, from value
+store value                 // store new value
+skipcond 000               // check if the new value is negative
+jump cont                 // if not, jump to continue location
+jump valMak              // if yes, jump to value maker to change its value to the privous value
+cont, load ones                          // load ones, number of binarry
+add one                                 // and add one to it
+store ones                             // 
+load parity                           // load parity and toggle it
+ifElse, skipcond 800                 // if it is a positive number, which means one subtract one 
+jump adder                          // if not, which means it is zero, jump to adder and add one to it
+subt one
+store parity
+jump vck                          // jump to value checker 
+adder, add one
+store parity
+vck, load value                 // load value to see of the proceess is done                       
+skipcond 400                   // if it is zero, end of the function
+jump loop                     // if not, jump back to loop
+jump endfn
+valMak, load value          // load value to take back its value to privious one
+add i
+store value
+jump loop                 // jump back to loop to try it again
+endfn, jumpi mul         // end of the function
+
+value, dec 0
+copyValue, dec 0
+parity, dec 0
+ones, dec 0
+one, dec 1
+i, dec 0
+addr, hex 03C           // address of the begining of the array
+
+ArrayAddr, hex 03C     // array values
+bit6, dec 64
+bit5, dec 32
+bit4, dec 16
+bit3, dec 8
+bit2, dec 4
+bit1, dec 2
+bit0, dec 1
